@@ -19,6 +19,7 @@ No books and online courses needed, all chapters and exercises are linked to par
 
 ## How to start?
 
+- Fork this repo
 - Start by building this repo with simple `mvn clean install`.
 - All the exercises are located in [exercises/src/test/java](exercises/src/test/java) package.
 - All exercises are in the form of unit tests. If you run the test and test passes, that means you solved exercise successfully!.
