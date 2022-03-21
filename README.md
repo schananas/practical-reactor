@@ -2,6 +2,7 @@
 
 Welcome to practical Project Reactor and reactive programming workshop! 100+ unique exercise offers you to gain production like experience or to improve existing Project Reactor Skills by teaching best practices for building a reactive applications.
 
+![Project Reactor](reactor.gif)
 ## Who is this workshop for?
 
 Workshop is designed for relative beginners in Project Reactor, that already has some theory knowledge but lack hands-on experience.
@@ -25,6 +26,23 @@ No books and online courses needed, all chapters and exercises are linked to par
 - Every chapter contains read me documentation at the beginning of the file that describes what is the chapter and important links in reference guide that you should read before starting the chapter.
 - Every exercise has written implementation requirements and `todo` markers that will point you where to start.
 
+### Table of contents
+
+* [Introduction](exercises/src/test/java/c1_Introduction.java)
+* [Transforming sequence](exercises/src/test/java/c2_TransformingSequence.java)
+* [Filtering sequence](exercises/src/test/java/c3_FilteringSequence.java)
+* [Lifecycle hooks](exercises/src/test/java/c4_LifecycleHooks.java)
+* [Creating sequence](exercises/src/test/java/c5_CreatingSequence.java)
+* [Combining publishers](exercises/src/test/java/c6_CombiningPublishers.java)
+* [Error handling](exercises/src/test/java/c7_ErrorHandling.java)
+* [Sinks](exercises/src/test/java/c8_Sinks.java)
+* [Execution control](exercises/src/test/java/c9_ExecutionControl.java)
+* [Backpressure](exercises/src/test/java/c10_Backpressure.java)
+* [Batching](exercises/src/test/java/c11_Batching.java)
+* [Broadcasting](exercises/src/test/java/c12_Broadcasting.java)
+* [Context](exercises/src/test/java/c13_Context.java)
+
+
 ## How to run?
 
 - Navigate to chapter and exercise
@@ -43,22 +61,5 @@ While in `exercises/` folder you can execute `mvn hint:{name_of_execrice}` and i
 ## Still stuck? (in progress)
 Hints are just a nudge to steer you in the right direction.
 If you are just stuck and can' solve the exercise, or you want to compare your solution with authors solution navigate to `/solutions` branch.
-
-## Table of contents
-
-* [Introduction](exercises/src/test/java/c1_Introduction.java)
-* [Transforming sequence](exercises/src/test/java/c2_TransformingSequence.java)
-* [Filtering sequence](exercises/src/test/java/c3_FilteringSequence.java)
-* [Lifecycle hooks](exercises/src/test/java/c4_LifecycleHooks.java)
-* [Creating sequence](exercises/src/test/java/c5_CreatingSequence.java)
-* [Combining publishers](exercises/src/test/java/c6_CombiningPublishers.java)
-* [Error handling](exercises/src/test/java/c7_ErrorHandling.java)
-* [Sinks](exercises/src/test/java/c8_Sinks.java)
-* [Execution control](exercises/src/test/java/c9_ExecutionControl.java)
-* [Backpressure](exercises/src/test/java/c10_Backpressure.java)
-* [Batching](exercises/src/test/java/c11_Batching.java)
-* [Broadcasting](exercises/src/test/java/c12_Broadcasting.java)
-* [Context](exercises/src/test/java/c13_Context.java)
-
 
 Created with :heart: by [schananas](https://github.com/schananas)
