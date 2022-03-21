@@ -1,4 +1,4 @@
-# Practical Reactor (beta)
+# Practical Reactor workshop (beta)
 
 Welcome to practical Project Reactor and reactive programming workshop! 100+ unique exercise offers you to gain production like experience or to improve existing Project Reactor Skills by teaching best practices for building a reactive applications.
 
@@ -59,3 +59,6 @@ If you are just stuck and can' solve the exercise, or you want to compare your s
 * [Batching](exercises/src/test/java/c11_Batching.java)
 * [Broadcasting](exercises/src/test/java/c12_Broadcasting.java)
 * [Context](exercises/src/test/java/c13_Context.java)
+
+
+Created with :heart: by [schananas](https://github.com/schananas)
