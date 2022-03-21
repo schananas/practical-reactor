@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  *
  * @author Stefan Dragisic
  */
-public class e9_ExecutionControl extends ExecutionControlBase {
+public class c9_ExecutionControl extends ExecutionControlBase {
 
     /**
      * You are working on smartphone app and this part of code should show user his notifications. Since there could be

@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Stefan Dragisic
  */
-public class e1_Introduction extends IntroductionBase {
+public class c1_Introduction extends IntroductionBase {
 
     /**
      * Every exercise starts with Hello World!

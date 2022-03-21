@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Stefan Dragisic
  */
-public class e6_CombiningPublishers extends CombiningPublishersBase {
+public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * Goal of this exercise is to get retrieve e-mail of currently logged-in user. `getCurrentUser()` method retrieves

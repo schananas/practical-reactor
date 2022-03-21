@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Stefan Dragisic
  */
-public class e10_Backpressure extends BackpressureBase {
+public class c10_Backpressure extends BackpressureBase {
 
     /**
      * In this exercise subscriber (test) will request several messages from the message stream. Hook to the requests

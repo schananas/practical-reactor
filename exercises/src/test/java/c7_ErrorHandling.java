@@ -22,7 +22,7 @@ import java.util.function.Function;
  *
  * @author Stefan Dragisic
  */
-public class e7_ErrorHandling extends ErrorHandlingBase {
+public class c7_ErrorHandling extends ErrorHandlingBase {
 
     /**
      * You are monitoring hearth beat signal from space probe. Heart beat is sent every 1 second.

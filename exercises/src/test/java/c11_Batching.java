@@ -19,7 +19,7 @@ import reactor.test.StepVerifier;
  *
  * @author Stefan Dragisic
  */
-public class e11_Batching extends BatchingBase {
+public class c11_Batching extends BatchingBase {
 
     /**
      * To optimize disk writing, write data in batches of max 10 items, per batch.

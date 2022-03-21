@@ -17,7 +17,7 @@ import reactor.test.StepVerifier;
  *
  * @author Stefan Dragisic
  */
-public class e2_TransformingSequence extends TransformingSequenceBase {
+public class c2_TransformingSequence extends TransformingSequenceBase {
 
     /***
      * Your task is simple:

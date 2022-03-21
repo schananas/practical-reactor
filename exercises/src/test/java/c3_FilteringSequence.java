@@ -18,7 +18,7 @@ import reactor.test.StepVerifier;
  *
  * @author Stefan Dragisic
  */
-public class e3_FilteringSequence extends FilteringSequenceBase {
+public class c3_FilteringSequence extends FilteringSequenceBase {
 
     /**
      * Collect most popular girl names, no longer then 4 characters.

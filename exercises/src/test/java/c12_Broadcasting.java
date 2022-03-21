@@ -23,7 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author Stefan Dragisic
  */
-public class e12_Broadcasting extends BroadcastingBase {
+public class c12_Broadcasting extends BroadcastingBase {
 
     /**
      * Split incoming message stream into two streams, one contain user that sent message and second that contains

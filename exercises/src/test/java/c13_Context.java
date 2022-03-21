@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Stefan Dragisic
  */
-public class e13_Context extends ContextBase {
+public class c13_Context extends ContextBase {
 
     /**
      * You are writing a message handler that is called by a framework (client). Framework attaches a http correlation

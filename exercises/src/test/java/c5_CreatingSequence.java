@@ -32,7 +32,7 @@ import java.util.stream.Stream;
  *
  * @author Stefan Dragisic
  */
-public class e5_CreatingSequence {
+public class c5_CreatingSequence {
 
     /**
      * Emit value that you already have

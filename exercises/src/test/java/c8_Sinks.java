@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author Stefan Dragisic
  */
-public class e8_Sinks extends SinksBase {
+public class c8_Sinks extends SinksBase {
 
     /**
      * You need to execute operation that is submitted to legacy system which does not support Reactive API. You want to

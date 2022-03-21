@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Stefan Dragisic
  */
-public class e4_LifecycleHooks extends LifecycleHooksBase {
+public class c4_LifecycleHooks extends LifecycleHooksBase {
 
     /**
      * Add a hook that will execute when Flux temperatureFlux is subscribed too. As a side effect hook should add string
