@@ -1,4 +1,4 @@
-# Practical Reactor
+# Practical Reactor (beta)
 
 Welcome to practical Project Reactor and reactive programming workshop! 100+ unique exercise offers you to gain production like experience or to improve existing Project Reactor Skills by teaching best practices for building a reactive applications.
 
