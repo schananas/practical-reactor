@@ -40,6 +40,6 @@ While in `exercises/` folder you can execute `mvn hint:{name_of_execrice}` and i
 
 ![](hints.gif)
 
-##Still stuck? (in progress)
+## Still stuck? (in progress)
 Hints are just a nudge to steer you in the right direction.
 If you are just stuck and can' solve the exercise, or you want to compare your solution with authors solution navigate to `/solutions` branch.
