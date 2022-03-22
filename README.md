@@ -1,29 +1,27 @@
 # Practical Reactor workshop (beta)
 
-Welcome to practical Project Reactor and reactive programming workshop! 100+ unique exercise offers you to gain production like experience or to improve existing Project Reactor Skills by teaching best practices for building a reactive applications.
+Welcome to practical Project Reactor and reactive programming workshop! 100+ unique exercise offers you production like experience or to improve existing Project Reactor skills by teaching best practices for building a reactive applications.
 
 ![Project Reactor](reactor.gif)
 ## Who is this workshop for?
 
 Workshop is designed for relative beginners in Project Reactor, that already has some theory knowledge but lack hands-on experience.
-If you are absolute beginner in Project Reactor, this is also fine, but this workshop just offers tasks to improve your skills and does not explain all the concepts used in exercises.
-If you are absolute beginner, you might want to start with some theory what asynchronous, reactive programming is and how Project Reactor can help you with that.
+If you are absolute beginner in Project Reactor, you might want to start with some theory what asynchronous, reactive programming is and how Project Reactor can help you with that.
 
-If you are already familiar with Project Reactor, this workshop is for you.
+If you are already familiar with Project Reactor or reactive programing, this workshop is for you.
 
 ### What do I need to start?
-As stated its expected that you have at least some basic knowledge about concepts of Project Reactor and reactive programming.
 Knowing what Project Reactor is, what are Mono and Flux is enough to get you started!
 Other than that you will need a nice IDE, like Intellij or Eclipse, time and Project Reactor reference guide!
 No books and online courses needed, all chapters and exercises are linked to particular section in [reference guide](https://projectreactor.io/docs/core/release/reference/).
 
 ## How to start?
 
-- Fork this repo
-- Start by building this repo with simple `mvn clean install`.
+- Start by forking this repo
+- Build this repo with simple `mvn clean install`.
 - All the exercises are located in [exercises/src/test/java](exercises/src/test/java) package.
-- All exercises are in the form of unit tests. If you run the test and test passes, that means you solved exercise successfully!.
-- All chapters are enumerated with number: c${chapter}. Starting with 1. (eg: c1_Introduction)
+- All exercises are in the form of unit tests. If you run the test and test passes, that means you solved exercise successfully!
+- All chapters are enumerated with number. Start with chapter 1.
 - Every chapter contains read me documentation at the beginning of the file that describes what is the chapter and important links in reference guide that you should read before starting the chapter.
 - Every exercise has written implementation requirements and `todo` markers that will point you where to start.
 
@@ -47,20 +45,22 @@ No books and online courses needed, all chapters and exercises are linked to par
 ## How to run?
 
 - Navigate to chapter and exercise
-- Do the changes required in the exercise
+- Implement the changes required in the exercise
 - Run the test
 - If test passes, you are done with the exercise!
 
 ![](run.gif)
 
 ### Are you stuck?
-Are you stuck? Sometimes it gets hard to find the right answer. Just a nudge might help.
-While in `exercises/` folder you can execute `mvn hint:{name_of_execrice}` and it will offer help how to solve execrice without giving out full solution.
+Sometimes it gets hard to find the right answer. Just a nudge might help.
+While in `exercises` folder you can execute `mvn hint:{name_of_exercise}` and it will offer help how to solve exercise without giving out full solution.
+Read exercise requirements carefully, often there is a hint in there too.
 
 ![](hints.gif)
 
 ## Still stuck? (in progress)
 Hints are just a nudge to steer you in the right direction.
-If you are just stuck and can' solve the exercise, or you want to compare your solution with authors solution navigate to `/solutions` branch.
+If you are just stuck and can' solve the exercise, or you want to compare your solution with authors solution navigate to `solutions` branch.
+
 
 Created with :heart: by [schananas](https://github.com/schananas)
