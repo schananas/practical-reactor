@@ -5,12 +5,12 @@ Welcome to practical Project Reactor and reactive programming workshop! 100+ uni
 ![Project Reactor](reactor.gif)
 ## Who is this workshop for?
 
-Workshop is designed for relative beginners in Project Reactor, that already has some theory knowledge but lack hands-on experience.
+Workshop is designed for relative beginners in [Project Reactor](https://projectreactor.io/), that already has some theory knowledge but lack hands-on experience.
 If you are absolute beginner in Project Reactor, you might want to start with some theory what asynchronous, reactive programming is and how Project Reactor can help you with that.
 
 If you are already familiar with Project Reactor or reactive programing, this workshop is for you.
 
-### What do I need to start?
+### What do you need to start?
 Knowing what Project Reactor is, what are Mono and Flux is enough to get you started!
 Other than that you will need a nice IDE, like Intellij or Eclipse, time and Project Reactor reference guide!
 No books and online courses needed, all chapters and exercises are linked to particular section in [reference guide](https://projectreactor.io/docs/core/release/reference/).
