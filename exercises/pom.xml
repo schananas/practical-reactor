@@ -65,8 +65,8 @@
             </plugin>
             <plugin>
                 <groupId>com.github.schananas</groupId>
-                <artifactId>hint</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>hints</artifactId>
+                <version>1.0</version>
             </plugin>
         </plugins>
     </build>
