@@ -6,14 +6,15 @@ import reactor.test.StepVerifier;
 /**
  * Sequence may produce many elements, but we are not always interested in all of them. In this chapter we will learn
  * how to filter elements from a sequence.
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.filtering
- * <p>
+ *
  * Useful documentation:
- * <p>
- * https://projectreactor.io/docs/core/release/reference/#which-operator https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+ *
+ * https://projectreactor.io/docs/core/release/reference/#which-operator
+ * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
  *
  * @author Stefan Dragisic
@@ -35,8 +36,8 @@ public class c3_FilteringSequence extends FilteringSequenceBase {
     }
 
     /**
-     * `mashed_data_service()` returns sequence of generic objects. Without using `filter()` operator, make this
-     * sequence return only objects that are type of `String.class`
+     * `mashed_data_service()` returns sequence of generic objects.
+     *  Without using `filter()` operator, collect only objects that are instance of `String`
      */
     @Test
     public void needle_in_a_haystack() {
@@ -64,10 +65,10 @@ public class c3_FilteringSequence extends FilteringSequenceBase {
     }
 
     /**
-     * This service returns many items, but you are only interested in the first one. Also, service is very fragile, if
-     * you pull more than needed, you may brake it.
-     * <p>
-     * This time no blocking! Use only one operator!
+     * This service returns many elements, but you are only interested in the first one.
+     * Also, service is very fragile, if you pull more than needed, you may brake it.
+     *
+     * This time no blocking. Use only one operator.
      */
     @Test
     public void watch_out_for_the_spiders() {
@@ -75,14 +76,14 @@ public class c3_FilteringSequence extends FilteringSequenceBase {
         Mono<String> firstResult = Mono.empty();
         fragile_service();
 
-        //don't change anything here!
+        //don't change code below
         StepVerifier.create(firstResult)
                     .expectNext("watch_out")
                     .verifyComplete();
     }
 
     /**
-     * `number_service()` returns 300 numbers, but you only need first 100 numbers, no matter what they are.
+     * `number_service()` returns 300 numbers, but you only need first 100 numbers.
      */
     @Test
     public void dont_take_more_then_you_need() {

@@ -9,15 +9,14 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * In this chapter we are going to cover ways of combining publishers, coordinating them and executing tasks.
+ * In this important chapter we are going to cover different ways of combining publishers.
  *
- * <p>
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.values
- * <p>
+ *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -27,16 +26,16 @@ import java.util.concurrent.atomic.AtomicReference;
 public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
-     * Goal of this exercise is to get retrieve e-mail of currently logged-in user. `getCurrentUser()` method retrieves
-     * currently logged-in user and `getUserEmail()` will return e-mail for given user.
-     * <p>
+     * Goal of this exercise is to retrieve e-mail of currently logged-in user.
+     * `getCurrentUser()` method retrieves currently logged-in user
+     * and `getUserEmail()` will return e-mail for given user.
+     *
      * No blocking operators, no subscribe operator!
-     * <p>
-     * You may only use `flatMap` operator.
+     * You may only use `flatMap()` operator.
      */
     @Test
     public void behold_flatmap() {
-        Hooks.enableContextLossTracking(); //used for testing
+        Hooks.enableContextLossTracking(); //used for testing - detects if you are cheating!
 
         //todo: feel free to change code as you need
         Mono<String> currentUserEmail = null;
@@ -50,10 +49,11 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     }
 
     /**
-     * `taskExecutor()` returns flux of tasks that should execute important work. Get all the tasks from the flux and
-     * execute each of them.
-     * <p>
-     * Answer: - Is there a difference between Mono.flatMap and Flux.flatMap?
+     * `taskExecutor()` returns tasks that should execute important work.
+     * Get all the tasks and execute them.
+     *
+     * Answer:
+     * - Is there a difference between Mono.flatMap() and Flux.flatMap()?
      */
     @Test
     public void task_executor() {
@@ -69,9 +69,9 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     }
 
     /**
-     * `streamingService()` opens a connection to the data provider. Once connection is established you will be able to
-     * collect messages from stream.
-     * <p>
+     * `streamingService()` opens a connection to the data provider.
+     * Once connection is established you will be able to collect messages from stream.
+     *
      * Establish connection and get all messages from data provider stream!
      */
     @Test
@@ -88,9 +88,9 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
 
     /**
-     * Join fluxes `numberService1` and `numberService2` end-to-end. First `numberService1` emits elements and then
-     * `numberService2`. (no interleaving)
-     * <p>
+     * Join results from services `numberService1()` and `numberService2()` end-to-end.
+     * First `numberService1` emits elements and then `numberService2`. (no interleaving)
+     *
      * Bonus: There are two ways to do this, check out both!
      */
     @Test
@@ -108,21 +108,16 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * Similar to previous task:
-     * <p>
-     * `taskExecutor` returns flux of tasks that should execute important work. Get all the tasks from the flux and
-     * execute each of them.
-     * <p>
-     * Instead of flatMap use concatMap operator.
-     * <p>
+     *
+     * `taskExecutor()` returns tasks that should execute important work.
+     * Get all the tasks and execute each of them.
+     *
+     * Instead of flatMap() use concatMap() operator.
+     *
      * Answer:
-     * <p>
-     * - What is difference between concatMap and flatMap?
-     * <p>
-     * - What is difference between concatMap and flatMapSequential?
-     * <p>
-     * - Why Mono doesn't have concatMap operator?
-     * <p>
-     * We will tackle these topics in more detail later on.
+     * - What is difference between concatMap() and flatMap()?
+     * - What is difference between concatMap() and flatMapSequential()?
+     * - Why doesn't Mono have concatMap() operator?
      */
     @Test
     public void task_executor_again() {
@@ -139,8 +134,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * You are writing software for broker house. You can retrieve current stock prices by calling either
-     * `getStocksGrpc()` or `getStocksRest()`. Since goal is maximum speed, invoke both services but use data only from the
-     * one that responds first.
+     * `getStocksGrpc()` or `getStocksRest()`.
+     * Since goal is the best response time, invoke both services but use result only from the one that responds first.
      */
     @Test
     public void need_for_speed() {
@@ -156,11 +151,9 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     }
 
     /**
-     * As part of your job as software engineer for broker house, you have introduced quick local cache to retrieve
-     * stocks from. But cached may not be formed yet or is invalidated. If cache is empty, switch to a different source:
-     * `getStocksRest()`
-     * <p>
-     * Hint: switchIfEmpty
+     * As part of your job as software engineer for broker house, you have also introduced quick local cache to retrieve
+     * stocks from. But cache may not be formed yet or is empty. If cache is empty, switch to a live source:
+     * `getStocksRest()`.
      */
     @Test
     public void plan_b() {
@@ -179,9 +172,7 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * You are checking mail in your mailboxes. Check first mailbox, and if first message contains spam immediately
-     * switch to a second mailbox. Otherwise, stick with the first mailbox.
-     *
-     * Hint: switch on first
+     * switch to a second mailbox. Otherwise, read all messages from first mailbox.
      */
     @Test
     public void mail_box_switcher() {
@@ -200,11 +191,11 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     }
 
     /**
-     * You are implementing instant search for software company. User types in a text box and results should appear in near
-     * real-time with each keystroke.
-     * <p>
-     * Call `autoComplete()` function for each input, but if newer input arrives, cancel previous `autoComplete()` call and
-     * call it for latest input.
+     * You are implementing instant search for software company.
+     * When user types in a text box results should appear in near real-time with each keystroke.
+     *
+     * Call `autoComplete()` function for each user input
+     * but if newer input arrives, cancel previous `autoComplete()` call and call it for latest input.
      */
     @Test
     public void instant_search() {
@@ -223,10 +214,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * Code should work, but it should also be easy to read and understand.
-     * <p>
-     * Execute following operations in a self-explanatory way using operators like when,and,then...
-     * <p>
-     * If all operations have been executed successfully return `true`.
+     * Orchestrate file writing operations in a self-explanatory way using operators like `when`,`and`,`then`...
+     * If all operations have been executed successfully return boolean value `true`.
      */
     @Test
     public void prettify() {
@@ -264,7 +253,7 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     }
 
     /**
-     * Execute all tasks in order and after each task have been executed, commit task changes. Don't lose id's of
+     * Execute all tasks sequentially and after each task have been executed, commit task changes. Don't lose id's of
      * committed tasks, they are needed to further processing!
      */
     @Test
@@ -284,8 +273,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
 
     /**
-     * News have come that Microsoft is buying Blizzard and there will be a major merger. Merge two companies, so they
-     * may still produce titles in individual pace but as a single company.
+     * News have come that Microsoft is buying Blizzard and there will be a major merger.
+     * Merge two companies, so they may still produce titles in individual pace but as a single company.
      */
     @Test
     public void major_merger() {
@@ -308,11 +297,9 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     /**
      * Your job is to produce cars. To produce car you need chassis and engine that are produced by a different
-     * manufacturer. You need both parts in order to produce car.
-     * <p>
+     * manufacturer. You need both parts before you can produce a car.
      * Also, engine factory is located further away and engines are more complicated to produce, therefore it will be
      * slower part producer.
-     * <p>
      * After both parts arrive connect them to a car.
      */
     @Test
@@ -341,8 +328,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
     //todo: implement this method based on instructions
     public Mono<String> chooseSource() {
-        sourceA(); //choose if sourceRef == "A"
-        sourceB(); //choose if sourceRef == "B"
+        sourceA(); //<- choose if sourceRef == "A"
+        sourceB(); //<- choose if sourceRef == "B"
         return Mono.empty(); //otherwise, return empty
     }
 

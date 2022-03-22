@@ -16,20 +16,19 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * With multi-core architectures being a commodity nowadays, being able to easily parallelize work is important. Reactor
- * helps with that by providing a special type, ParallelFlux, that exposes operators that are optimized for parallelized
- * work.
- * <p>
+ * With multi-core architectures being a commodity nowadays, being able to easily parallelize work is important.
+ * Reactor helps with that by providing many mechanisms to execute work in parallel.
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#schedulers
  * https://projectreactor.io/docs/core/release/reference/#advanced-parallelizing-parralelflux
  * https://projectreactor.io/docs/core/release/reference/#_the_publishon_method
  * https://projectreactor.io/docs/core/release/reference/#_the_subscribeon_method
  * https://projectreactor.io/docs/core/release/reference/#which.time
- * <p>
+ *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -41,7 +40,6 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     /**
      * You are working on smartphone app and this part of code should show user his notifications. Since there could be
      * multiple notifications, for better UX you want to slow down appearance between notifications by 1 second.
-     * <p>
      * Pay attention to threading, compare what code prints out before and after solution. Explain why?
      */
     @Test
@@ -72,7 +70,6 @@ public class c9_ExecutionControl extends ExecutionControlBase {
      * You are using free access to remote hosting machine. You want to execute 3 tasks on this machine, but machine
      * will allow you to execute one task at a time on a given schedule which is orchestrated by the semaphore. If you
      * disrespect schedule, your access will be blocked.
-     * <p>
      * Delay execution of tasks until semaphore signals you that you can execute the task.
      */
     @Test
@@ -80,7 +77,7 @@ public class c9_ExecutionControl extends ExecutionControlBase {
         //todo: feel free to change code as you need
         Flux<String> tasks = tasks()
                 .flatMap(Function.identity());
-        ;
+        semaphore();
 
         //don't change code below
         StepVerifier.create(tasks)
@@ -94,8 +91,10 @@ public class c9_ExecutionControl extends ExecutionControlBase {
 
     /**
      * Make task run on thread suited for short, non-blocking, parallelized work.
-     * <p>
-     * Answer: Which types of schedulers Reactor provides? What is their purpose? What is their difference?
+     * Answer:
+     * - Which types of schedulers Reactor provides?
+     * - What is their purpose?
+     * - What is their difference?
      */
     @Test
     public void non_blocking() {
@@ -113,8 +112,8 @@ public class c9_ExecutionControl extends ExecutionControlBase {
 
     /**
      * Make task run on thread suited for long, blocking, parallelized work.
-     * <p>
-     * Answer: What BlockHound for?
+     * Answer:
+     * - What BlockHound for?
      */
     @Test
     public void blocking() {
@@ -148,7 +147,7 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     }
 
     /**
-     * Adapt code so tasks may be executed in parallel, task result should preserve order in which they are invoked.
+     * Adapt the code so tasks are executed in parallel, but task results should preserve order in which they are invoked.
      */
     @Test
     public void sequential_free_runners() {
@@ -168,9 +167,8 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     }
 
     /**
-     * Make use of ParallelFlux to branch out processing of events in such way that: filtering events that have
-     * metadata, printing out metadata, and mapping to json can be done in parallel.
-     * <p>
+     * Make use of ParallelFlux to branch out processing of events in such way that:
+     * - filtering events that have metadata, printing out metadata, and mapping to json can be done in parallel.
      * Then branch in before appending events to store. `appendToStore` must be invoked sequentially!
      */
     @Test

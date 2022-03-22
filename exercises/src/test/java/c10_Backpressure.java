@@ -18,9 +18,9 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Backpressure is a mechanism that allows a consumer to signal to a producer that it is ready receive data.
  * This is important because the producer may be sending data faster than the consumer can process it, and can overwhelm consumer.
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#reactive.backpressure
  * https://projectreactor.io/docs/core/release/reference/#_on_backpressure_and_ways_to_reshape_requests
  * https://projectreactor.io/docs/core/release/reference/#_operators_that_change_the_demand_from_downstream
@@ -28,9 +28,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * https://projectreactor.io/docs/core/release/reference/#_asynchronous_but_single_threaded_push
  * https://projectreactor.io/docs/core/release/reference/#_a_hybrid_pushpull_model
  * https://projectreactor.io/docs/core/release/reference/#_an_alternative_to_lambdas_basesubscriber
- * <p>
+ *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -40,8 +40,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class c10_Backpressure extends BackpressureBase {
 
     /**
-     * In this exercise subscriber (test) will request several messages from the message stream. Hook to the requests
-     * and add them to the `requests` list.
+     * In this exercise subscriber (test) will request several messages from the message stream.
+     * Hook to the requests and record them to the `requests` list.
      */
     @Test
     public void request_and_demand() {
@@ -66,8 +66,6 @@ public class c10_Backpressure extends BackpressureBase {
     /**
      * Adjust previous solution in such a way that you limit rate of requests. Number of requested messages stays the
      * same, but each request should be limited to 1 message.
-     * <p>
-     * Hint: use doOnRequest, limitRate(1)
      */
     @Test
     public void limited_demand() {
@@ -112,8 +110,8 @@ public class c10_Backpressure extends BackpressureBase {
     }
 
     /**
-     * You are receiving messages from malformed publisher that may not respect backpressure. In case that publisher
-     * produces more messages than subscriber is able to consume, raise an error.
+     * You are receiving messages from malformed publisher that may not respect backpressure.
+     * In case that publisher produces more messages than subscriber is able to consume, raise an error.
      */
     @Test
     public void pressure_is_too_much() {
@@ -156,12 +154,12 @@ public class c10_Backpressure extends BackpressureBase {
     }
 
     /**
-     * We saw how to react to backpressure from producer side. In this part we are going to control backpressure from
+     * We saw how to react to request demand from producer side. In this part we are going to control demand from
      * consumer side by implementing BaseSubscriber directly.
-     * <p>
-     * Finish implementation of base subscriber (consumer of messages) with following objectives: - once there is
-     * subscription, you should request exactly 10 messages from publisher - once you received 10 messages, you should
-     * cancel any further requests from publisher. Producer respects backpressure.
+     * Finish implementation of base subscriber (consumer of messages) with following objectives:
+     * - once there is subscription, you should request exactly 10 messages from publisher
+     * - once you received 10 messages, you should cancel any further requests from publisher.
+     * Producer respects backpressure.
      */
     @Test
     public void subscriber() throws InterruptedException {

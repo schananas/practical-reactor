@@ -14,14 +14,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Lifecycle hooks are used to add additional behavior (side-effects) and to peek into sequence without modifying it. In
  * this chapter we will explore most common lifecycle hooks.
  *
- * <p>
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.peeking
- * <p>
+ *
  * Useful documentation:
- * <p>
- * https://projectreactor.io/docs/core/release/reference/#which-operator https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+ *
+ * https://projectreactor.io/docs/core/release/reference/#which-operator
+ * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
  *
  * @author Stefan Dragisic
@@ -29,8 +29,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class c4_LifecycleHooks extends LifecycleHooksBase {
 
     /**
-     * Add a hook that will execute when Flux temperatureFlux is subscribed too. As a side effect hook should add string
-     * "subscribe" to `hooksTriggered` list.
+     * Add a hook that will execute when Flux `temperatureFlux` is subscribed too.
+     * As a side effect hook should add string "subscribe" to `hooksTriggered` list.
      */
     @Test
     public void no_subscription_no_gains() {
@@ -48,7 +48,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     }
 
     /**
-     * Add a hook that will execute before Flux temperatureFlux is subscribed too. As a side effect hook should add
+     * Add a hook that will execute before Flux `temperatureFlux` is subscribed too. As a side effect hook should add
      * string "before subscribe" to `hooksTriggered` list.
      */
     @Test
@@ -87,7 +87,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
 
     /**
      * Add a hook that will execute when `temperatureFlux` has completed without errors. As a side effect set
-     * `completed` to true
+     * `completed` flag to true.
      */
     @Test
     public void successfully_executed() {
@@ -106,7 +106,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
 
     /**
      * Add a hook that will execute when `temperatureFlux` is canceled by the subscriber. As a side effect set
-     * `canceled` to true
+     * `canceled` flag to true.
      */
     @Test
     public void need_to_cancel() {
@@ -124,10 +124,9 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     }
 
     /**
-     * Add a side-effect that increments `hooksTriggeredCounter` counters when the `temperatureFlux` terminates, either
+     * Add a side-effect that increments `hooksTriggeredCounter` counter when the `temperatureFlux` terminates, either
      * by completing successfully or failing with an error.
-     * <p>
-     * Use only one operator!
+     * Use only one operator.
      */
     @Test
     public void terminator() {
@@ -155,7 +154,6 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     /**
      * Add a side effect that increments `hooksTriggeredCounter` when the `temperatureFlux` terminates, either when
      * completing successfully, gets canceled or failing with an error.
-     * <p>
      * Use only one operator!
      */
     @Test
@@ -183,7 +181,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     }
 
     /**
-     * Replace `to do` with "one" || "two" || "three" in order of `doFirst()` hook execution
+     * Replace `to do` strings with "one" || "two" || "three" depending on order of `doFirst()` hook execution.
      */
     @Test
     public void ordering_is_important() {
@@ -205,15 +203,14 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     }
 
     /**
-     * <p>
      * There is advanced operator, typically used for monitoring of a Flux. This operator will add behavior
      * (side-effects) triggered for each signal that happens on Flux. It also has access to the context, which might be
      * useful later.
-     * <p>
-     * In this exercise, flux will emit three elements and then complete. Add signal names to `signal` list dynamically,
+     *
+     * In this exercise, Flux will emit three elements and then complete. Add signal names to `signal` list dynamically,
      * once these signals occur.
-     * <p>
-     * Side task: Explore this operator's documentation, as it may be useful in the future.
+     *
+     * Bonus: Explore this operator's documentation, as it may be useful in the future.
      */
     @Test
     public void one_to_rule_them_all() {

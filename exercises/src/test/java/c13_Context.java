@@ -11,14 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Often we might require state when working with complex streams. Reactor offers powerful context mechanism to share
  * state between operators, as we can't rely on thread-local variables, because threads are not guaranteed to be the
  * same. In this chapter we will explore usage of Context API.
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#context
- * <p>
+ *
  * Useful documentation:
- * <p>
- * https://projectreactor.io/docs/core/release/reference/#which-operator https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+ *
+ * https://projectreactor.io/docs/core/release/reference/#which-operator
+ * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
  *
  * @author Stefan Dragisic
@@ -26,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class c13_Context extends ContextBase {
 
     /**
-     * You are writing a message handler that is called by a framework (client). Framework attaches a http correlation
+     * You are writing a message handler that is executed by a framework (client). Framework attaches a http correlation
      * id to the Reactor context. Your task is to extract the correlation id and attach it to the message object.
      */
     public Mono<Message> messageHandler(String payload) {
@@ -68,8 +69,9 @@ public class c13_Context extends ContextBase {
     }
 
     /**
-     * You need to retrieve 10 result pages from the DB. Using the context and repeat operator, keep track of which page
-     * you are on. If the error occurs during a page retrieval, log the error message CONTAINING page number that has an
+     * You need to retrieve 10 result pages from the database.
+     * Using the context and repeat operator, keep track of which page you are on.
+     * If the error occurs during a page retrieval, log the error message containing page number that has an
      * error and skip the page. Fetch first 10 pages.
      */
     @Test

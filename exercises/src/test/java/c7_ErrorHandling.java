@@ -9,15 +9,16 @@ import java.util.function.Function;
 
 /**
  * It's time introduce some resiliency by recovering from unexpected events!
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.errors
  * https://projectreactor.io/docs/core/release/reference/#error.handling
- * <p>
+ *
  * Useful documentation:
- * <p>
- * https://projectreactor.io/docs/core/release/reference/#which-operator https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+ *
+ * https://projectreactor.io/docs/core/release/reference/#which-operator
+ * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
  *
  * @author Stefan Dragisic
@@ -26,10 +27,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
 
     /**
      * You are monitoring hearth beat signal from space probe. Heart beat is sent every 1 second.
-     * <p>
-     * Raise error if probe does not any emit heart beat signal longer then 3 seconds. If error happens, save it in
-     * `errorRef`.
-     * <p>
+     * Raise error if probe does not any emit heart beat signal longer then 3 seconds.
+     * If error happens, save it in `errorRef`.
      */
     @Test
     public void houston_we_have_a_problem() {
@@ -48,7 +47,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * Get currently logged user. If any error occurs, exception should be further propagated as `SecurityException`.
+     * Retrieve currently logged user.
+     * If any error occurs, exception should be further propagated as `SecurityException`.
      * Keep original cause.
      */
     @Test
@@ -65,8 +65,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * Consume all the messages `message node`. Ignore any failure, and if error happens finish consuming silently
-     * without raising any error.
+     * Consume all the messages `messageNode()`.
+     * Ignore any failures, and if error happens finish consuming silently without propagating any error.
      */
     @Test
     public void under_the_rug() {
@@ -80,8 +80,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * Consume all the messages `message node`, if node suddenly fails use `backup message node` to consume the rest of
-     * the messages.
+     * Retrieve all the messages `messageNode()`,and if node suddenly fails
+     * use `backupMessageNode()` to consume the rest of the messages.
      */
     @Test
     public void have_a_backup() {
@@ -97,10 +97,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * Consume all the messages `message node`, if node suddenly fails report error to `errorReportService` then
-     * propagate error to downstream.
-     * <p>
-     * Hint: onErrorResume + errorReportService + then(Mono.error)
+     * Consume all the messages `messageNode()`, if node suddenly fails report error to `errorReportService` then
+     * propagate error downstream.
      */
     @Test
     public void error_reporter() {
@@ -118,11 +116,11 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
 
     /**
      * Execute all tasks from `taskQueue()`. If task executes
-     * without any error commit task changes, otherwise rollback task changes.
-     * Do don't propagate any error to downstream.
+     * without any error, commit task changes, otherwise rollback task changes.
+     * Do don't propagate any error downstream.
      */
     @Test
-    public void transactional() {
+    public void unit_of_work() {
         Flux<Task> taskFlux = taskQueue()
                 //todo: do your changes here
                 ;
@@ -134,9 +132,9 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * `getFilesContent()` should return file contents from three different files. But one of the files may be
-     * corrupted and will throw an exception if opened. Using `onErrorContinue()` try to get the content of the other two
-     * files.
+     * `getFilesContent()` should return files content from three different files. But one of the files may be
+     * corrupted and will throw an exception if opened.
+     * Using `onErrorContinue()` skip corrupted file and get the content of the other files.
      */
     @Test
     public void billion_dollar_mistake() {
@@ -153,14 +151,14 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     /**
      * Quote from one of creators of Reactor: onErrorContinue is my billion-dollar mistake. `onErrorContinue` is
      * considered as a bad practice, its unsafe and should be avoided.
-     * <p>
+     *
      * {@see <a href="https://nurkiewicz.com/2021/08/onerrorcontinue-reactor.html">onErrorContinue</a>} {@see <a
      * href="https://devdojo.com/ketonemaniac/reactor-onerrorcontinue-vs-onerrorresume">onErrorContinue vs
      * onErrorResume</a>} {@see <a href="https://bsideup.github.io/posts/daily_reactive/where_is_my_exception/">Where is
      * my exception?</a>}
-     * <p>
-     * Your task is to implement `onErrorContinue` behaviour using `onErrorResume` operator, by using knowledge gained in
-     * previous lessons.
+     *
+     * Your task is to implement `onErrorContinue()` behaviour using `onErrorResume()` operator,
+     * by using knowledge gained from previous lessons.
      */
     @Test
     public void resilience() {
@@ -190,10 +188,8 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     }
 
     /**
-     * In following example you are trying to establish connection to your
-     * database, which is very expensive operation. You may retry to establish connection maximum of three times, so do
-     * it wisely!
-     * <p>
+     * In following example you are trying to establish connection to database, which is very expensive operation.
+     * You may retry to establish connection maximum of three times, so do it wisely!
      * FIY: database is temporarily down, and it will be up in few seconds (5).
      */
     @Test

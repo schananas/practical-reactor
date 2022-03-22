@@ -1,6 +1,7 @@
-package com.github.schananas.hints;
+package com.github.schananas.hint;
 
 
+import com.github.schananas.hints.Hint;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 
@@ -50,8 +51,8 @@ class error_reporter
     }
 }
 
-@Mojo(name = "transactional")
-class transactional
+@Mojo(name = "unit_of_work")
+class unit_of_work
         extends AbstractMojo implements Hint {
 
     public void execute() {

@@ -8,15 +8,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * In this chapter we will learn difference between hot and cold publishers,
  * how to split a publisher into multiple and how to keep history so late subscriber don't miss any updates.
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#reactor.hotCold
  * https://projectreactor.io/docs/core/release/reference/#which.multicasting
  * https://projectreactor.io/docs/core/release/reference/#advanced-broadcast-multiple-subscribers-connectableflux
- * <p>
+ *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -55,7 +55,6 @@ public class c12_Broadcasting extends BroadcastingBase {
     /**
      * Since two subscribers are interested in the updates, which are coming from same source, convert `updates` stream
      * to from cold to hot source.
-     * <p>
      * Answer: What is the difference between hot and cold publisher? Why does won't .share() work in this case?
      */
     @Test

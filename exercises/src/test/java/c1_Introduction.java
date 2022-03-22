@@ -12,17 +12,18 @@ import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This section will introduce you to the basics of Reactor. You will practise how to retrieve result from Mono and Flux
+ * This chapter will introduce you to the basics of Reactor.
+ * You will learn how to retrieve result from Mono and Flux
  * in different ways.
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#intro-reactive
  * https://projectreactor.io/docs/core/release/reference/#reactive.subscribe
  * https://projectreactor.io/docs/core/release/reference/#_subscribe_method_examples
  *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -32,10 +33,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class c1_Introduction extends IntroductionBase {
 
     /**
-     * Every exercise starts with Hello World!
-     *
+     * Every journey starts with Hello World!
      * As you may know, Mono represents asynchronous result of 0-1 element.
-     * Retrieve result from this mono by blocking indefinitely until a next signal is received.
+     * Retrieve result from this Mono by blocking indefinitely or until a next signal is received.
      */
     @Test
     public void hello_world() {
@@ -47,7 +47,7 @@ public class c1_Introduction extends IntroductionBase {
     }
 
     /**
-     * Retrieving result should last for a limited time amount of time, or you might get in trouble!
+     * Retrieving result should last for a limited time amount of time, or you might get in trouble.
      * Try retrieving result from service by blocking for maximum of 1 second or until a next signal is received.
      */
     @Test
@@ -66,7 +66,7 @@ public class c1_Introduction extends IntroductionBase {
 
     /**
      * Services are unpredictable, they might and might not return a result and no one likes nasty NPE's.
-     * Retrieve result as optional object
+     * Retrieve result from the service as optional object.
      */
     @Test
     public void empty_service() {
@@ -83,7 +83,7 @@ public class c1_Introduction extends IntroductionBase {
      * It's time to introduce Flux, an Asynchronous Sequence of 0-N Items.
      *
      * Service we are calling returns multiple items, but we are interested only in the first one.
-     * Retrieve first item from this flux by blocking indefinitely until a first signal is received.
+     * Retrieve first item from this Flux by blocking indefinitely until a first item is received.
      */
     @Test
     public void multi_result_service() {
@@ -96,9 +96,8 @@ public class c1_Introduction extends IntroductionBase {
 
     /**
      * We have the service that returns list of fortune top five companies.
-     *
-     * Collect companies emitted by this service into a List.
-     * Retrieve result by blocking.
+     * Collect companies emitted by this service into a list.
+     * Retrieve results by blocking.
      */
     @Test
     public void fortune_top_five() {
@@ -132,7 +131,7 @@ public class c1_Introduction extends IntroductionBase {
         //todo: add an operator here, don't use any blocking operator!
         ;
 
-        Thread.sleep(1000); // can you explain why this line is needed for this to work deterministic?
+        Thread.sleep(1000); //bonus: can you explain why this line is needed?
 
         assertEquals(Arrays.asList("Walmart", "Amazon", "Apple", "CVS Health", "UnitedHealth Group"), companyList);
     }
@@ -145,7 +144,7 @@ public class c1_Introduction extends IntroductionBase {
      *  - does nothing if error occurs
      *  - sets `serviceCallCompleted` to `true` once service call is completed.
      *
-     *  Don't use doOnNext, doOnError, doOnComplete hooks!
+     *  Don't use doOnNext, doOnError, doOnComplete hooks.
      */
     @Test
     public void leaving_blocking_world_behind() throws InterruptedException {

@@ -13,19 +13,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 /**
- * In this chapter we are going to cover fundamentals ways of how to create a sequence of elements. At the end of this
- * chapter we will tackle more complex methods like generate,create,push, and we will meet them again in following
+ * In this chapter we are going to cover fundamentals of how to create a sequence. At the end of this
+ * chapter we will tackle more complex methods like generate, create, push, and we will meet them again in following
  * chapters like Sinks and Backpressure.
  *
- * <p>
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.create
  * https://projectreactor.io/docs/core/release/reference/#producing
  * https://projectreactor.io/docs/core/release/reference/#_simple_ways_to_create_a_flux_or_mono_and_subscribe_to_it
- * <p>
+ *
  * Useful documentation:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -35,7 +34,7 @@ import java.util.stream.Stream;
 public class c5_CreatingSequence {
 
     /**
-     * Emit value that you already have
+     * Emit value that you already have.
      */
     @Test
     public void value_I_already_have_mono() {
@@ -48,7 +47,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Emit potentially null value that you already have
+     * Emit potentially null value that you already have.
      */
     @Test
     public void potentially_null_mono() {
@@ -60,7 +59,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Emit value from a optional
+     * Emit value from a optional.
      */
     @Test
     public void optional_value() {
@@ -73,7 +72,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Convert callable task to Mono
+     * Convert callable task to Mono.
      */
     @Test
     public void callable_counter() {
@@ -91,7 +90,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Convert future task to Mono
+     * Convert Future task to Mono.
      */
     @Test
     public void future_counter() {
@@ -108,7 +107,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Convert runnable task to Mono
+     * Convert Runnable task to Mono.
      */
     @Test
     public void runnable_counter() {
@@ -126,7 +125,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Mono that emits no value but completes successfully
+     * Create Mono that emits no value but completes successfully.
      */
     @Test
     public void acknowledged() {
@@ -137,7 +136,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Mono that emits no value and never completes
+     * Create Mono that emits no value and never completes.
      */
     @Test
     public void seen() {
@@ -150,7 +149,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Mono that completes exceptionally with error of type `IllegalStateException`
+     * Create Mono that completes exceptionally with exception `IllegalStateException`.
      */
     @Test
     public void trouble_maker() {
@@ -162,7 +161,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that emits all values from array
+     * Create Flux that will emit all values from the array.
      */
     @Test
     public void from_array() {
@@ -175,7 +174,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that emits all values from list
+     * Create Flux that will emit all values from the list.
      */
     @Test
     public void from_list() {
@@ -188,7 +187,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that emits all values from steam
+     * Create Flux that will emit all values from the steam.
      */
     @Test
     public void from_stream() {
@@ -201,7 +200,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that emits number at given time interval of 1 second
+     * Create Flux that emits number incrementing numbers at interval of 1 second.
      */
     @Test
     public void interval() {
@@ -219,7 +218,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that emits range of integers from [-5,5]
+     * Create Flux that emits range of integers from [-5,5].
      */
     @Test
     public void range() {
@@ -232,8 +231,8 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Using callable that increments a counter and returns the value and `repeat` operator, create Flux that emits
-     * values from 0 to 10
+     * Create Callable that increments the counter and returns the counter value, and then use `repeat()` operator to create Flux that emits
+     * values from 0 to 10.
      */
     @Test
     public void repeat() {
@@ -247,10 +246,11 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Following example is just a basic usage of `generate,`create`,`push` methods. We will learn how to use them in a
-     * more complex scenario when we tackle backpressure.
-     * <p>
-     * Answer: - What is difference between `generate` and `create`?
+     * Following example is just a basic usage of `generate,`create`,`push` sinks. We will learn how to use them in a
+     * more complex scenarios when we tackle backpressure.
+     *
+     * Answer:
+     * - What is difference between `generate` and `create`?
      * - What is difference between `create` and `push`?
      */
     @Test

@@ -5,14 +5,15 @@ import reactor.test.StepVerifier;
 
 /**
  * It's time to do some data manipulation!
- * <p>
+ *
  * Read first:
- * <p>
+ *
  * https://projectreactor.io/docs/core/release/reference/#which.values
- * <p>
+ *
  * Useful documentation:
- * <p>
- * https://projectreactor.io/docs/core/release/reference/#which-operator https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+ *
+ * https://projectreactor.io/docs/core/release/reference/#which-operator
+ * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
  *
  * @author Stefan Dragisic
@@ -29,8 +30,8 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
                 //todo change only this line
                 ;
 
-        //you will learn more about StepVerifier in following chapters
-        //ignore it for now
+        //StepVerifier is used for testing purposes
+        //ignore it for now, or explore it independently
         StepVerifier.create(numbersFlux)
                     .expectNext(2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
                     .verifyComplete();
@@ -49,21 +50,17 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
         //todo: do your changes here
         Flux<String> resultSequence = null;
 
-
-        //<<<<
-
+        //don't change code below
         StepVerifier.create(resultSequence)
                     .expectNext(">", "<", "=", ">", ">")
                     .verifyComplete();
     }
 
     /**
-     * `undefined_type_service` returns sequence of Objects, but if you peek into service implementation, you can see
+     * `object_service()` streams sequence of Objects, but if you peek into service implementation, you can see
      * that these items are in fact strings!
-     * <p>
-     * Casting using `map` to cast is one way to do it, but there is more convenient way.
-     * <p>
-     * Remove `map` operator and use more appropriate operator to cast sequence to String
+     * Casting using `map()` to cast is one way to do it, but there is more convenient way.
+     * Remove `map` operator and use more appropriate operator to cast sequence to String.
      */
     @Test
     public void cast() {
@@ -77,7 +74,8 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
     }
 
     /**
-     * `maybe_service` may return some result. In case it doesn't return default value "no results"
+     * `maybe_service()` may return some result.
+     * In case it doesn't return any result, return value "no results".
      */
     @Test
     public void maybe() {
@@ -91,8 +89,8 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
     }
 
     /**
-     * Reduce the values from `numerical_service` into a single number that is equal to sum of all numbers emitted by
-     * this service
+     * Reduce the values from `numerical_service()` into a single number that is equal to sum of all numbers emitted by
+     * this service.
      */
     @Test
     public void sequence_sum() {
@@ -107,7 +105,7 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
     }
 
     /***
-     *  Reduce the values from `numerical_service` but emit each intermediary number
+     *  Reduce the values from `numerical_service()` but emit each intermediary number
      *  Use first Flux value as initial value.
      */
     @Test
@@ -122,13 +120,11 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
     }
 
     /**
-     * A developer who wrote `numerical_service` forgot that sequence should start with zero, so you must prepend zero
+     * A developer who wrote `numerical_service()` forgot that sequence should start with zero, so you must prepend zero
      * to result sequence.
-     * <p>
-     * Do not alter `numerical_service` implementation!
      *
-     * <p>
-     * Use only one operator!
+     * Do not alter `numerical_service` implementation!
+     * Use only one operator.
      */
     @Test
     public void sequence_starts_with_zero() {
