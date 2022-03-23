@@ -1,4 +1,4 @@
-package com.github.schananas.hints;
+package com.github.schananas.hint;
 
 /**
  * @author Stefan Dragisic

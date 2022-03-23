@@ -1,7 +1,5 @@
 package com.github.schananas.hint;
 
-
-import com.github.schananas.hints.Hint;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 
