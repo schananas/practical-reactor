@@ -1,6 +1,6 @@
 # Practical Reactor workshop
 
-Welcome to practical Project Reactor and reactive programming workshop! Over 100 unique exercise provide for you production like experience and possibility improve existing skills by teaching best practices for building a reactive applications.
+Welcome to practical Project Reactor and reactive programming workshop! Over 100 unique exercises provide production like experience and possibility improve existing skills by teaching best practices for building a reactive applications.
 
 ![Project Reactor](img/reactor.gif)
 ## Who is this workshop for?
