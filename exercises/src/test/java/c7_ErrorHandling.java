@@ -196,7 +196,7 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
     @Test
     public void back_off() {
         Mono<String> connection_result = establishConnection()
-                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2)));
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(3)));
 
         StepVerifier.create(connection_result)
                     .expectNext("connection_established")
