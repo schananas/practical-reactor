@@ -245,4 +245,27 @@ public class CombiningPublishersBase {
             this.engine = engine;
         }
     }
+
+    public static class StreamingConnection {
+
+        public static AtomicBoolean isOpen = new AtomicBoolean();
+        public static AtomicBoolean cleanedUp = new AtomicBoolean();
+
+        public static Mono<Flux<String>> startStreaming() {
+            return Mono.just(Flux.range(1, 20).map(i -> "Message #" + i)
+                       .delayElements(Duration.ofMillis(250))
+                       .doOnNext(s -> System.out.println("Sending message: " + s))
+                       .doFirst(() -> {
+                           System.out.println("Streaming started!");
+                           isOpen.set(true);
+                       }));
+        }
+
+        public static Mono<Void> closeConnection() {
+            return Mono.empty().doFirst(() -> {
+                System.out.println("Streaming stopped! Cleaning up...");
+                cleanedUp.set(true);
+            }).then();
+        }
+    }
 }

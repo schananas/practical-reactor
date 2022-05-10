@@ -148,3 +148,14 @@ class deterministic
                 "You should defer decision until subscription actually happens...");
     }
 }
+
+@Mojo(name = "cleanup")
+class cleanup
+        extends AbstractMojo implements Hint {
+
+    public void execute() {
+        printHint(
+                "Reactor has reactive equivalent of “try-with-resource”. You should use methods like Flux.using(...), Flux.usingWhen(...), Mono.using(...)...."
+                        + "Its important to read documentation of these methods and to understand them completely for this task. ");
+    }
+}
