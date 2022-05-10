@@ -24,6 +24,7 @@ No books or paid courses needed, all chapters and exercises are linked to partic
 - All chapters are enumerated with number. Start with chapter 1.
 - Every chapter contains read me documentation at the beginning of the file that describes what is the chapter and important links to reference guide that you should read before starting the chapter.
 - Every exercise has written implementation requirements and `todo` markers that will point you where to start.
+- :star: the repo once you completed all the exercises
 
 ### Table of contents
 

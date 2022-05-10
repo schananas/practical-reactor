@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.*;
+import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Hooks;
 import reactor.core.publisher.Mono;
@@ -340,4 +341,27 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
                     .verifyComplete();
     }
 
+    /**
+     * Sometimes you need to clean up after your self.
+     * Open a connection to a streaming service and after all elements have been consumed,
+     * close connection (invoke closeConnection()), without blocking.
+     *
+     * This may look easy...
+     */
+    @Test
+    public void cleanup() {
+        BlockHound.install();
+
+        Flux<String> stream = Flux.usingWhen(
+                StreamingConnection.startStreaming(), //resource supplier -> supplies Flux from Mono
+                n -> n,//resource closure  -> closure in this case is same as Flux completion
+                tr -> StreamingConnection.closeConnection()//<-async complete, executes asynchronously after closure
+        );
+
+        StepVerifier.create(stream)
+                    .then(()-> Assertions.assertTrue(StreamingConnection.isOpen.get()))
+                    .expectNextCount(20)
+                    .verifyComplete();
+        Assertions.assertTrue(StreamingConnection.cleanedUp.get());
+    }
 }
