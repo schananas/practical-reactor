@@ -8,6 +8,7 @@ import reactor.test.StepVerifier;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 /**
  * In this important chapter we are going to cover different ways of combining publishers.
@@ -359,14 +360,14 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
      */
     @Test
     public void cleanup() {
-        BlockHound.install();
+        BlockHound.install(); //don't change this line, blocking = cheating!
 
-        Flux<String> stream = Flux.usingWhen(
-                StreamingConnection.startStreaming(), //resource supplier -> supplies Flux from Mono
-                n -> n,//resource closure  -> closure in this case is same as Flux completion
-                tr -> StreamingConnection.closeConnection()//<-async complete, executes asynchronously after closure
-        );
+        //todo: feel free to change code as you need
+        Flux<String> stream = StreamingConnection.startStreaming()
+                                                 .flatMapMany(Function.identity());
+        StreamingConnection.closeConnection();
 
+        //don't change below this line
         StepVerifier.create(stream)
                     .then(()-> Assertions.assertTrue(StreamingConnection.isOpen.get()))
                     .expectNextCount(20)
