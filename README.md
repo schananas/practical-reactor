@@ -63,5 +63,9 @@ Read exercise requirements carefully, often there is a hint in there too.
 Hints are just a nudge to steer you in the right direction.
 If you are just stuck and can't solve the exercise, or you want to compare your solution navigate to `solutions` branch.
 
+## Feedback
+Your feedback is important for maintaining this repo and keep workshop useful.
+You may post your feedback [here](https://github.com/schananas/practical-reactor/issues/2).
 
-Created with :heart: by [91stefan_](https://twitter.com/91stefan_)
+
+Created with :heart: by [schananas](https://twitter.com/91stefan_)
