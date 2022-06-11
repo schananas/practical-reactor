@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -10,7 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -105,7 +104,7 @@ public class c1_Introduction extends IntroductionBase {
     public void fortune_top_five() {
         Flux<String> serviceResult = fortuneTop5();
 
-        List<String> results = serviceResult.toStream().collect(Collectors.toList());
+        List<String> results = serviceResult.collectList().block();
 
         assertEquals(Arrays.asList("Walmart", "Amazon", "Apple", "CVS Health", "UnitedHealth Group"), results);
         assertTrue(fortuneTop5ServiceIsCalled.get());
@@ -130,8 +129,7 @@ public class c1_Introduction extends IntroductionBase {
 
         serviceResult
                 .doOnNext(companyList::add)
-                .toStream()
-                .collect(Collectors.toList());
+                .subscribe();
 
         Thread.sleep(1000); //bonus: can you explain why this line is needed?
 
