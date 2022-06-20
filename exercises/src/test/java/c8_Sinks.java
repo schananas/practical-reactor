@@ -185,7 +185,6 @@ public class c8_Sinks extends SinksBase {
     // TODO: Passed without changes
     @Test
     public void emit_failure() {
-        //todo: feel free to change code as you need
         Sinks.Many<Integer> sink = Sinks.many().replay().all();
 
         for (int i = 1; i <= 50; i++) {

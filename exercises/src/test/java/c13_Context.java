@@ -82,13 +82,16 @@ public class c13_Context extends ContextBase {
 
         Flux<Integer> results = Mono.deferContextual(ctx -> getPage(ctx.get(AtomicInteger.class).get()))
                 .doOnEach(pageSignal -> {
-                    if (pageSignal.getType() == SignalType.ON_NEXT) {
-                        pageSignal.getContextView().get(AtomicInteger.class).incrementAndGet();
-                    } else if (pageSignal.getType() == SignalType.ON_ERROR) {
-                        pageWithError.set(pageSignal.getContextView().get(AtomicInteger.class).get());
-                        System.out.println("Error: " + pageSignal.getThrowable().getMessage());
-                        System.out.println("Error on page: " + pageSignal.getContextView().get(AtomicInteger.class).getAndIncrement());
-                    }
+                    switch (pageSignal.getType()) {
+                        case ON_NEXT:
+                            pageSignal.getContextView().get(AtomicInteger.class).incrementAndGet();
+                            break;
+                        case ON_ERROR:
+                            pageWithError.set(pageSignal.getContextView().get(AtomicInteger.class).get());
+                            System.out.println("Error: " + pageSignal.getThrowable().getMessage());
+                            System.out.println("Error on page: " + pageSignal.getContextView().get(AtomicInteger.class).getAndIncrement());
+                            break;
+                    };
                 })
                 .onErrorResume(throwable -> Mono.empty())
                 .flatMapMany(Page::getResult)
