@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.SignalType;
 import reactor.test.StepVerifier;
 import reactor.util.context.Context;
 
@@ -11,13 +12,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Often we might require state when working with complex streams. Reactor offers powerful context mechanism to share
  * state between operators, as we can't rely on thread-local variables, because threads are not guaranteed to be the
  * same. In this chapter we will explore usage of Context API.
- *
+ * <p>
  * Read first:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#context
- *
+ * <p>
  * Useful documentation:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -31,8 +32,10 @@ public class c13_Context extends ContextBase {
      * id to the Reactor context. Your task is to extract the correlation id and attach it to the message object.
      */
     public Mono<Message> messageHandler(String payload) {
-        //todo: do your changes withing this method
-        return Mono.just(new Message("set correlation_id from context here", payload));
+        return Mono.deferContextual(ctx -> {
+            String correlationId = ctx.get(HTTP_CORRELATION_ID);
+            return Mono.just(new Message(correlationId, payload));
+        });
     }
 
     @Test
@@ -42,9 +45,9 @@ public class c13_Context extends ContextBase {
                 .contextWrite(Context.of(HTTP_CORRELATION_ID, "2-j3r9afaf92j-afkaf"));
 
         StepVerifier.create(mono)
-                    .expectNextMatches(m -> m.correlationId.equals("2-j3r9afaf92j-afkaf") && m.payload.equals(
-                            "Hello World!"))
-                    .verifyComplete();
+                .expectNextMatches(m -> m.correlationId.equals("2-j3r9afaf92j-afkaf") && m.payload.equals(
+                        "Hello World!"))
+                .verifyComplete();
     }
 
     /**
@@ -53,19 +56,18 @@ public class c13_Context extends ContextBase {
     @Test
     public void execution_counter() {
         Mono<Void> repeat = Mono.deferContextual(ctx -> {
-            ctx.get(AtomicInteger.class).incrementAndGet();
-            return openConnection();
-        });
-        //todo: change this line only
-        ;
+                    ctx.get(AtomicInteger.class).incrementAndGet();
+                    return openConnection();
+                })
+                .contextWrite(Context.of(AtomicInteger.class, new AtomicInteger(0)));
 
         StepVerifier.create(repeat.repeat(4))
-                    .thenAwait(Duration.ofSeconds(10))
-                    .expectAccessibleContext()
-                    .assertThat(ctx -> {
-                        assert ctx.get(AtomicInteger.class).get() == 5;
-                    }).then()
-                    .expectComplete().verify();
+                .thenAwait(Duration.ofSeconds(10))
+                .expectAccessibleContext()
+                .assertThat(ctx -> {
+                    assert ctx.get(AtomicInteger.class).get() == 5;
+                }).then()
+                .expectComplete().verify();
     }
 
     /**
@@ -78,17 +80,27 @@ public class c13_Context extends ContextBase {
     public void pagination() {
         AtomicInteger pageWithError = new AtomicInteger(); //todo: set this field when error occurs
 
-        //todo: start from here
-        Flux<Integer> results = getPage(1)
+        Flux<Integer> results = Mono.deferContextual(ctx -> getPage(ctx.get(AtomicInteger.class).get()))
+                .doOnEach(pageSignal -> {
+                    if (pageSignal.getType() == SignalType.ON_NEXT) {
+                        pageSignal.getContextView().get(AtomicInteger.class).incrementAndGet();
+                    } else if (pageSignal.getType() == SignalType.ON_ERROR) {
+                        pageWithError.set(pageSignal.getContextView().get(AtomicInteger.class).get());
+                        System.out.println("Error: " + pageSignal.getThrowable().getMessage());
+                        System.out.println("Error on page: " + pageSignal.getContextView().get(AtomicInteger.class).getAndIncrement());
+                    }
+                })
+                .onErrorResume(throwable -> Mono.empty())
                 .flatMapMany(Page::getResult)
                 .repeat(10)
-                .doOnNext(i -> System.out.println("Received: " + i));
+                .doOnNext(integer -> System.out.println("Received: " + integer))
+                .contextWrite(Context.of(AtomicInteger.class, new AtomicInteger(0)));
 
 
         //don't change this code
         StepVerifier.create(results)
-                    .expectNextCount(90)
-                    .verifyComplete();
+                .expectNextCount(90)
+                .verifyComplete();
 
         Assertions.assertEquals(3, pageWithError.get());
     }
