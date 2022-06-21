@@ -79,7 +79,7 @@ public class c13_Context extends ContextBase {
         AtomicInteger pageWithError = new AtomicInteger(); //todo: set this field when error occurs
 
         //todo: start from here
-        Flux<Integer> results = getPage(1)
+        Flux<Integer> results = getPage(0)
                 .flatMapMany(Page::getResult)
                 .repeat(10)
                 .doOnNext(i -> System.out.println("Received: " + i));
