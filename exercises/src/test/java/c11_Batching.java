@@ -2,6 +2,8 @@ import org.junit.jupiter.api.*;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
+
 /**
  * Another way of controlling amount of data flowing is batching.
  * Reactor provides three batching strategies: grouping, windowing, and buffering.
@@ -53,8 +55,10 @@ public class c11_Batching extends BatchingBase {
         sendCommand(null);
 
         //do not change the code below
-        StepVerifier.create(processCommands)
-                    .verifyComplete();
+        Duration duration = StepVerifier.create(processCommands)
+                .verifyComplete();
+
+        Assertions.assertTrue(duration.getSeconds() <= 3, "Expected to complete in less than 3 seconds");
     }
 
 
