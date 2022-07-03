@@ -39,15 +39,13 @@ public class ExecutionControlBase {
         );
     }
 
-    public Runnable blockingRunnable() {
-        return () -> {
-            System.out.println("Executing blocking task...");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        };
+    public static void blockingCall() {
+        System.out.println("Executing blocking task...");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Flux<Event> eventProcessor() {

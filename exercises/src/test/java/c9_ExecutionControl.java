@@ -7,6 +7,7 @@ import reactor.core.Scannable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.NonBlocking;
+import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
@@ -119,8 +120,8 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     public void blocking() {
         BlockHound.install(); //don't change this line
 
-        Mono<Void> task = Mono.fromRunnable(this::blockingRunnable)
-                              //todo: change this line only
+        Mono<Void> task = Mono.fromRunnable(ExecutionControlBase::blockingCall)
+                              .subscribeOn(Schedulers.single())//todo: change this line only
                               .then();
 
         StepVerifier.create(task)
@@ -133,7 +134,7 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     @Test
     public void free_runners() {
         //todo: feel free to change code as you need
-        Mono<Void> task = Mono.fromRunnable(blockingRunnable());
+        Mono<Void> task = Mono.fromRunnable(ExecutionControlBase::blockingCall);
 
         Flux<Void> taskQueue = Flux.just(task, task, task)
                                    .concatMap(Function.identity());
