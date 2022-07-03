@@ -118,7 +118,7 @@ public class c9_ExecutionControl extends ExecutionControlBase {
     public void blocking() {
         BlockHound.install(); //don't change this line
 
-        Mono<Void> task = Mono.fromRunnable(this::blockingRunnable)
+        Mono<Void> task = Mono.fromRunnable(ExecutionControlBase::blockingCall)
                               .subscribeOn(Schedulers.boundedElastic())
                               .then();
 
@@ -131,7 +131,7 @@ public class c9_ExecutionControl extends ExecutionControlBase {
      */
     @Test
     public void free_runners() {
-        Mono<Void> task = Mono.fromRunnable(blockingRunnable())
+        Mono<Void> task = Mono.fromRunnable(ExecutionControlBase::blockingCall)
                               .subscribeOn(Schedulers.boundedElastic())
                               .then();
 
