@@ -50,7 +50,7 @@ public class CombiningPublishersBase {
     }
 
     public Flux<Integer> numberService1() {
-        return Flux.range(1, 3).doOnNext(System.out::println);
+        return Flux.range(1, 3).doOnNext(System.out::println).delaySubscription(Duration.ofMillis(100));
     }
 
     public Flux<Integer> numberService2() {
