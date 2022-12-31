@@ -41,7 +41,7 @@ public class c3_FilteringSequence extends FilteringSequenceBase {
      */
     @Test
     public void needle_in_a_haystack() {
-        Flux<Object> strings = mashed_data_service()
+        Flux<String> strings = mashed_data_service()
                 //todo: change this line only
                 ;
 
