@@ -273,15 +273,15 @@ public class c5_CreatingSequence {
         });
 
         StepVerifier.create(generateFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
 
         StepVerifier.create(createFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
 
         StepVerifier.create(pushFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
     }
 
