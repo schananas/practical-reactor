@@ -94,11 +94,11 @@ public class c2_TransformingSequence extends TransformingSequenceBase {
      */
     @Test
     public void sequence_sum() {
+        //todo: change code as you need
         Mono<Integer> sum = null;
-        numerical_service()
-        //todo: do your changes here
-        ;
+        numerical_service();
 
+        //don't change code below
         StepVerifier.create(sum)
                     .expectNext(55)
                     .verifyComplete();
