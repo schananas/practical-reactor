@@ -253,19 +253,17 @@ public class c5_CreatingSequence {
      * more complex scenarios when we tackle backpressure.
      *
      * Answer:
-     * - What is difference between `generate` and `create`?
-     * - What is difference between `create` and `push`?
+     * - What is difference between `generate` and `create`? former has state and SynchronousSink, latter is stateless and FluxSink
+     * - What is difference between `create` and `push`? - former is for multi-threaded case, latter is for single-threaded one
      */
     @Test
     public void generate_programmatically() {
-        AtomicInteger atomicInteger = new AtomicInteger();
-        Flux<Integer> generateFlux = Flux.generate(sink -> {
-            //todo: fix following code so it emits values from 0 to 5 and then completes
-            System.out.println(atomicInteger.getAndIncrement());
-            if(atomicInteger.get()==6) sink.complete();
-            sink.next(atomicInteger.get());
+        Flux<Object> generateFlux = Flux.generate(() -> 1, (state, sink) -> {
+            if (state == 6) sink.complete();
+            System.out.println(state);
+            sink.next(state);
+            return state + 1;
         });
-
         //------------------------------------------------------
 
         Flux<Integer> createFlux = Flux.create(sink -> {
