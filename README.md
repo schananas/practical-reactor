@@ -1,3 +1,7 @@
+This is converted to use kotlin and gradle for my own personal learning. The original repository can be found here https://github.com/schananas/practical-reactor
+
+
+
 # Practical Reactor workshop
 
 Welcome to practical Project Reactor and reactive programming workshop! Over 100 unique exercises provide production like experience and possibility improve existing skills by teaching best practices for building a reactive applications.
