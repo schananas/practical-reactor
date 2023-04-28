@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="c1_Introduction" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-28T13:53:50" hostname="SBGMLT6QL75J749" time="0.034">
+  <properties/>
+  <testcase name="hello_world()" classname="c1_Introduction" time="0.034"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
