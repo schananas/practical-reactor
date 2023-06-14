@@ -126,7 +126,7 @@ public class c7_ErrorHandling extends ErrorHandlingBase {
                 ;
 
         StepVerifier.create(taskFlux)
-                    .expectNextMatches(task -> task.executedExceptionally.get())
+                    .expectNextMatches(task -> task.executedExceptionally.get() && !task.executedSuccessfully.get())
                     .expectNextMatches(task -> task.executedSuccessfully.get())
                     .verifyComplete();
     }
