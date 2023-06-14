@@ -67,9 +67,9 @@ If you are just stuck and can't solve the exercise, or you want to compare your 
 Your feedback is important for maintaining this repo and keep workshop useful.
 You may post your feedback [here](https://github.com/schananas/practical-reactor/issues/2).
 
-## Enjoyed the workshop?
+## Enjoyed the workshop? [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/schananas)
 Consider buying me a coffee! It will help me to keep this workshop up to date and add new chapters and exercises.
 
-[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/schananas)
+
 
 Created with :heart: by [schananas](https://twitter.com/91stefan_)
