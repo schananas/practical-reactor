@@ -257,7 +257,7 @@ public class c5_CreatingSequence {
     @Test
     public void generate_programmatically() {
 
-        AtomicInteger counter = new AtomicInteger(1);
+        AtomicInteger counter = new AtomicInteger(0);
         Flux<Integer> generateFlux = Flux.generate(sink -> {
             if (counter.get() > 5) sink.complete();
             sink.next(counter.getAndIncrement());
@@ -266,7 +266,7 @@ public class c5_CreatingSequence {
         //------------------------------------------------------
 
         Flux<Integer> createFlux = Flux.create(sink -> {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 0; i <= 5; i++) {
                 sink.next(i);
             }
             sink.complete();
@@ -275,22 +275,22 @@ public class c5_CreatingSequence {
         //------------------------------------------------------
 
         Flux<Integer> pushFlux = Flux.push(sink -> {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 0; i <= 5; i++) {
                 sink.next(i);
             }
             sink.complete();
         });
 
         StepVerifier.create(generateFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
 
         StepVerifier.create(createFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
 
         StepVerifier.create(pushFlux)
-                    .expectNext(1, 2, 3, 4, 5)
+                    .expectNext(0, 1, 2, 3, 4, 5)
                     .verifyComplete();
     }
 
