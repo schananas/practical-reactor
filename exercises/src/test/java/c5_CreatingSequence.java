@@ -187,7 +187,7 @@ public class c5_CreatingSequence {
     }
 
     /**
-     * Create Flux that will emit all values from the steam.
+     * Create Flux that will emit all values from the stream.
      */
     @Test
     public void from_stream() {
