@@ -69,6 +69,7 @@ You may post your feedback [here](https://github.com/schananas/practical-reactor
 
 ## Enjoyed the workshop?
 Consider buying me a coffee!
+
 It will help me to keep this workshop up to date and add new chapters and exercises.
 
 [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/schananas)
