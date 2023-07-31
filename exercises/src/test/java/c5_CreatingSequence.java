@@ -272,6 +272,7 @@ public class c5_CreatingSequence {
             for (int i = 0; i <= 5; i++) {
                 sink.next(i);
             }
+            System.out.println("1");
             sink.complete();
         });
 
