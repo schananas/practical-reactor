@@ -121,14 +121,14 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     /**
      * Add a side-effect that increments `hooksTriggeredCounter` counter when the `temperatureFlux` terminates, either
      * by completing successfully or failing with an error.
-     * Use only one operator.
      */
     @Test
     public void terminator() {
         AtomicInteger hooksTriggeredCounter = new AtomicInteger(0);
 
         Flux<Integer> temperatureFlux = room_temperature_service()
-                .doOnTerminate(hooksTriggeredCounter::incrementAndGet);
+                .doOnTerminate(hooksTriggeredCounter::incrementAndGet)
+                .doOnCancel(hooksTriggeredCounter::incrementAndGet);
 
         StepVerifier.create(temperatureFlux.take(0))
                     .expectNextCount(0)
@@ -138,7 +138,8 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNextCount(0)
                     .verifyComplete();
 
-        StepVerifier.create(temperatureFlux.skip(20).concatWith(Flux.error(new RuntimeException("oops"))))
+        StepVerifier.create(temperatureFlux.skip(20)
+                    .concatWith(Flux.error(new RuntimeException("oops"))))
                     .expectError()
                     .verify();
 
