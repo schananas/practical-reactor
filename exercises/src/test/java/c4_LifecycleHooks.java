@@ -154,7 +154,6 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
     /**
      * Add a side effect that increments `hooksTriggeredCounter` when the `temperatureFlux` terminates, either when
      * completing successfully, gets canceled or failing with an error.
-     * Use only one operator!
      */
     @Test
     public void one_to_catch_them_all() {
