@@ -22,7 +22,7 @@ import reactor.test.StepVerifier;
 public class c3_FilteringSequence extends FilteringSequenceBase {
 
     /**
-     * Collect most popular girl names, no longer then 4 characters.
+     * Collect most popular girl names, no longer than 4 characters.
      */
     @Test
     public void girls_are_made_of_sugar_and_spice() {
