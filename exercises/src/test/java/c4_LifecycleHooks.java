@@ -44,7 +44,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNextCount(5)
                     .verifyComplete();
 
-        Assertions.assertEquals(hooksTriggered, List.of("subscribe"));
+        Assertions.assertEquals(List.of("subscribe"), hooksTriggered);
     }
 
     /**
@@ -63,7 +63,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNextCount(5)
                     .verifyComplete();
 
-        Assertions.assertEquals(hooksTriggered, Arrays.asList("before subscribe", "subscribe"));
+        Assertions.assertEquals(Arrays.asList("before subscribe", "subscribe"), hooksTriggered);
     }
 
     /**
@@ -82,7 +82,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNextCount(20)
                     .verifyComplete();
 
-        Assertions.assertEquals(counter.get(), 20);
+        Assertions.assertEquals(20, counter.get());
     }
 
     /**
@@ -148,7 +148,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectError()
                     .verify();
 
-        Assertions.assertEquals(hooksTriggeredCounter.get(), 2);
+        Assertions.assertEquals(2, hooksTriggeredCounter.get());
     }
 
     /**
@@ -177,7 +177,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectError()
                     .verify();
 
-        Assertions.assertEquals(hooksTriggeredCounter.get(), 3);
+        Assertions.assertEquals(3, hooksTriggeredCounter.get());
     }
 
     /**
@@ -199,7 +199,7 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNext(true)
                     .verifyComplete();
 
-        Assertions.assertEquals(sideEffects, orderOfExecution);
+        Assertions.assertEquals(orderOfExecution, sideEffects);
     }
 
     /**
@@ -224,6 +224,6 @@ public class c4_LifecycleHooks extends LifecycleHooksBase {
                     .expectNextCount(3)
                     .verifyComplete();
 
-        Assertions.assertEquals(signals, Arrays.asList("ON_NEXT", "ON_NEXT", "ON_NEXT", "ON_COMPLETE"));
+        Assertions.assertEquals(Arrays.asList("ON_NEXT", "ON_NEXT", "ON_NEXT", "ON_COMPLETE"), signals);
     }
 }
