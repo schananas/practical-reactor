@@ -1,4 +1,5 @@
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Hooks;
@@ -12,13 +13,13 @@ import java.util.function.Function;
 
 /**
  * In this important chapter we are going to cover different ways of combining publishers.
- *
+ * <p>
  * Read first:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#which.values
- *
+ * <p>
  * Useful documentation:
- *
+ * <p>
  * https://projectreactor.io/docs/core/release/reference/#which-operator
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
  * https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
@@ -31,7 +32,7 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
      * Goal of this exercise is to retrieve e-mail of currently logged-in user.
      * `getCurrentUser()` method retrieves currently logged-in user
      * and `getUserEmail()` will return e-mail for given user.
-     *
+     * <p>
      * No blocking operators, no subscribe operator!
      * You may only use `flatMap()` operator.
      */
@@ -40,32 +41,30 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
         Hooks.enableContextLossTracking(); //used for testing - detects if you are cheating!
 
         //todo: feel free to change code as you need
-        Mono<String> currentUserEmail = null;
-        Mono<String> currentUserMono = getCurrentUser();
-        getUserEmail(null);
+        Mono<String> currentUserEmail = getCurrentUser().flatMap(this::getUserEmail);
 
         //don't change below this line
         StepVerifier.create(currentUserEmail)
-                    .expectNext("user123@gmail.com")
-                    .verifyComplete();
+                .expectNext("user123@gmail.com")
+                .verifyComplete();
     }
 
     /**
      * `taskExecutor()` returns tasks that should execute important work.
      * Get all the tasks and execute them.
-     *
+     * <p>
      * Answer:
      * - Is there a difference between Mono.flatMap() and Flux.flatMap()?
      */
     @Test
     public void task_executor() {
         //todo: feel free to change code as you need
-        Flux<Void> tasks = null;
-        taskExecutor();
+        Flux<Mono<Void>> rawTasks = taskExecutor();
+        Flux<Void> tasks = rawTasks.flatMap(mono -> mono);
 
         //don't change below this line
         StepVerifier.create(tasks)
-                    .verifyComplete();
+                .verifyComplete();
 
         Assertions.assertEquals(taskCounter.get(), 10);
     }
@@ -73,49 +72,64 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     /**
      * `streamingService()` opens a connection to the data provider.
      * Once connection is established you will be able to collect messages from stream.
-     *
+     * <p>
      * Establish connection and get all messages from data provider stream!
      */
     @Test
     public void streaming_service() {
         //todo: feel free to change code as you need
-        Flux<Message> messageFlux = null;
-        streamingService();
+        Mono<Flux<Message>> messages = streamingService();
+        Flux<Message> messageFlux = messages.flatMapMany(mes -> mes);
 
         //don't change below this line
         StepVerifier.create(messageFlux)
-                    .expectNextCount(10)
-                    .verifyComplete();
+                .expectNextCount(10)
+                .verifyComplete();
     }
 
 
     /**
      * Join results from services `numberService1()` and `numberService2()` end-to-end.
      * First `numberService1` emits elements and then `numberService2`. (no interleaving)
-     *
+     * <p>
      * Bonus: There are two ways to do this, check out both!
      */
     @Test
     public void i_am_rubber_you_are_glue() {
         //todo: feel free to change code as you need
-        Flux<Integer> numbers = null;
-        numberService1();
-        numberService2();
+        Flux<Integer> integerFlux = numberService1();
+        Flux<Integer> integerFlux2 = numberService2();
+
+        Flux<Integer> numbers = Flux.concat(integerFlux,integerFlux2);
 
         //don't change below this line
         StepVerifier.create(numbers)
-                    .expectNext(1, 2, 3, 4, 5, 6, 7)
-                    .verifyComplete();
+                .expectNext(1, 2, 3, 4, 5, 6, 7)
+                .verifyComplete();
+    }
+
+    @Test
+    public void i_am_rubber_you_are_glue_2() {
+        //todo: feel free to change code as you need
+        Flux<Integer> integerFlux = numberService1();
+        Flux<Integer> integerFlux2 = numberService2();
+
+        Flux<Integer> numbers = Flux.merge(integerFlux,integerFlux2);
+
+        //don't change below this line
+        StepVerifier.create(numbers)
+                .expectNext(1, 2, 3, 4, 5, 6, 7)
+                .verifyComplete();
     }
 
     /**
      * Similar to previous task:
-     *
+     * <p>
      * `taskExecutor()` returns tasks that should execute important work.
      * Get all the tasks and execute each of them.
-     *
+     * <p>
      * Instead of flatMap() use concatMap() operator.
-     *
+     * <p>
      * Answer:
      * - What is difference between concatMap() and flatMap()?
      * - What is difference between concatMap() and flatMapSequential()?
@@ -124,12 +138,11 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     @Test
     public void task_executor_again() {
         //todo: feel free to change code as you need
-        Flux<Void> tasks = null;
-        taskExecutor();
-
+        Flux<Mono<Void>> monoFlux = taskExecutor();
+        Flux<Void> tasks = monoFlux.concatMap(mono -> mono);
         //don't change below this line
         StepVerifier.create(tasks)
-                    .verifyComplete();
+                .verifyComplete();
 
         Assertions.assertEquals(taskCounter.get(), 10);
     }
@@ -142,14 +155,14 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     @Test
     public void need_for_speed() {
         //todo: feel free to change code as you need
-        Flux<String> stonks = null;
-        getStocksGrpc();
-        getStocksRest();
+        Flux<String> stocksGrpc = getStocksGrpc();
+        Flux<String> stocksRest =  getStocksRest();
+        Flux<String> stonks = Flux.firstWithSignal(stocksRest,stocksGrpc);
 
         //don't change below this line
         StepVerifier.create(stonks)
-                    .expectNextCount(5)
-                    .verifyComplete();
+                .expectNextCount(5)
+                .verifyComplete();
     }
 
     /**
@@ -160,14 +173,13 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     @Test
     public void plan_b() {
         //todo: feel free to change code as you need
-        Flux<String> stonks = null;
-        getStocksLocalCache();
-        getStocksRest();
-
+        Flux<String> stocksLocalCache =  getStocksLocalCache();
+        Flux<String> stocksRest =  getStocksRest();
+        Flux<String> stonks = Flux.firstWithValue(stocksLocalCache,stocksRest);
         //don't change below this line
         StepVerifier.create(stonks)
-                    .expectNextCount(6)
-                    .verifyComplete();
+                .expectNextCount(6)
+                .verifyComplete();
 
         Assertions.assertTrue(localCacheCalled.get());
     }
@@ -179,15 +191,25 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     @Test
     public void mail_box_switcher() {
         //todo: feel free to change code as you need
-        Flux<Message> myMail = null;
-        mailBoxPrimary();
-        mailBoxSecondary();
+        Flux<Message> primary = mailBoxPrimary();
+        Flux<Message> secondary = mailBoxSecondary();
+
+        Flux<Message> myMail = primary
+                .next()
+                .flatMapMany(firstMessage -> {
+                    if ("spam".equals(firstMessage.metaData)) {
+                        return secondary;
+                    } else {
+                        return primary.concatWith(secondary);
+                    }
+                });
+
 
         //don't change below this line
         StepVerifier.create(myMail)
-                    .expectNextMatches(m -> !m.metaData.equals("spam"))
-                    .expectNextMatches(m -> !m.metaData.equals("spam"))
-                    .verifyComplete();
+                .expectNextMatches(m -> !m.metaData.equals("spam"))
+                .expectNextMatches(m -> !m.metaData.equals("spam"))
+                .verifyComplete();
 
         Assertions.assertEquals(1, consumedSpamCounter.get());
     }
@@ -195,22 +217,20 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
     /**
      * You are implementing instant search for software company.
      * When user types in a text box results should appear in near real-time with each keystroke.
-     *
+     * <p>
      * Call `autoComplete()` function for each user input
      * but if newer input arrives, cancel previous `autoComplete()` call and call it for latest input.
      */
     @Test
     public void instant_search() {
         //todo: feel free to change code as you need
-        autoComplete(null);
         Flux<String> suggestions = userSearchInput()
-                //todo: use one operator only
-                ;
+                .switchMap(this::autoComplete);
 
         //don't change below this line
         StepVerifier.create(suggestions)
-                    .expectNext("reactor project", "reactive project")
-                    .verifyComplete();
+                .expectNext("reactor project", "reactive project")
+                .verifyComplete();
     }
 
 
@@ -231,8 +251,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //don't change below this line
         StepVerifier.create(successful)
-                    .expectNext(true)
-                    .verifyComplete();
+                .expectNext(true)
+                .verifyComplete();
 
         Assertions.assertTrue(fileOpened.get());
         Assertions.assertTrue(writtenToFile.get());
@@ -250,8 +270,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
         readFile();
 
         StepVerifier.create(fileLines)
-                    .expectNext("0x1", "0x2", "0x3")
-                    .verifyComplete();
+                .expectNext("0x1", "0x2", "0x3")
+                .verifyComplete();
     }
 
     /**
@@ -267,8 +287,8 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //don't change below this line
         StepVerifier.create(committedTasksIds)
-                    .expectNext("task#1", "task#2", "task#3")
-                    .verifyComplete();
+                .expectNext("task#1", "task#2", "task#3")
+                .verifyComplete();
 
         Assertions.assertEquals(3, committedTasksCounter.get());
     }
@@ -287,13 +307,13 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //don't change below this line
         StepVerifier.create(microsoftBlizzardCorp)
-                    .expectNext("windows12",
-                                "wow2",
-                                "bing2",
-                                "overwatch3",
-                                "office366",
-                                "warcraft4")
-                    .verifyComplete();
+                .expectNext("windows12",
+                        "wow2",
+                        "bing2",
+                        "overwatch3",
+                        "office366",
+                        "warcraft4")
+                .verifyComplete();
     }
 
 
@@ -313,12 +333,12 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //don't change below this line
         StepVerifier.create(producedCars)
-                    .recordWith(ConcurrentLinkedDeque::new)
-                    .expectNextCount(3)
-                    .expectRecordedMatches(cars -> cars.stream()
-                                                       .allMatch(car -> Objects.equals(car.chassis.getSeqNum(),
-                                                                                       car.engine.getSeqNum())))
-                    .verifyComplete();
+                .recordWith(ConcurrentLinkedDeque::new)
+                .expectNextCount(3)
+                .expectRecordedMatches(cars -> cars.stream()
+                        .allMatch(car -> Objects.equals(car.chassis.getSeqNum(),
+                                car.engine.getSeqNum())))
+                .verifyComplete();
     }
 
     /**
@@ -342,20 +362,20 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         sourceRef.set("A");
         StepVerifier.create(source)
-                    .expectNext("A")
-                    .verifyComplete();
+                .expectNext("A")
+                .verifyComplete();
 
         sourceRef.set("B");
         StepVerifier.create(source)
-                    .expectNext("B")
-                    .verifyComplete();
+                .expectNext("B")
+                .verifyComplete();
     }
 
     /**
      * Sometimes you need to clean up after your self.
      * Open a connection to a streaming service and after all elements have been consumed,
      * close connection (invoke closeConnection()), without blocking.
-     *
+     * <p>
      * This may look easy...
      */
     @Test
@@ -364,14 +384,14 @@ public class c6_CombiningPublishers extends CombiningPublishersBase {
 
         //todo: feel free to change code as you need
         Flux<String> stream = StreamingConnection.startStreaming()
-                                                 .flatMapMany(Function.identity());
+                .flatMapMany(Function.identity());
         StreamingConnection.closeConnection();
 
         //don't change below this line
         StepVerifier.create(stream)
-                    .then(()-> Assertions.assertTrue(StreamingConnection.isOpen.get()))
-                    .expectNextCount(20)
-                    .verifyComplete();
+                .then(() -> Assertions.assertTrue(StreamingConnection.isOpen.get()))
+                .expectNextCount(20)
+                .verifyComplete();
         Assertions.assertTrue(StreamingConnection.cleanedUp.get());
     }
 }
